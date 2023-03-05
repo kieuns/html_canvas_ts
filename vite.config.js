@@ -6,7 +6,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        pixel_rain: resolve(__dirname, 'pixel_rain/index.html')
+        pixelrain: resolve(__dirname, 'pixelrain/index.html'),
+        threejs: resolve(__dirname, 'threejs/index.html')
       }
     }
   }
