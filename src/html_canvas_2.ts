@@ -21,17 +21,23 @@ canvas.height = 480;
 // // 이미지 로딩은 lazy로딩. 로딩은 끝나면 기능 시작
 // myImage.addEventListener('load', function() {});
 
+let pixelArr:Pixel[] = [];
+const arrCount:number = 500;
+
 class Pixel {
-    x:number;
-    y:number;
-    size:number;
+    protected x:number;
+    protected y:number;
+    protected size:number;
+    protected speed:number;
+
     constructor() {
-        this.x = Math.random();
+        this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 1.5 + 1;
+        this.speed = Math.random() * 2;
+        this.size = (Math.random() * (this.speed) + 1);
     }
     update() {
-        this.y ++;
+        this.y += this.speed;
         if( this.y >= canvas.height) {
             this.y = 0;
             this.x = Math.random() * canvas.width;
@@ -45,8 +51,6 @@ class Pixel {
     }
 }
 
-let pixelArr:Pixel[] = [];
-const arrCount:number = 500;
 
 function init() {
     for(let i = 0; i < arrCount; i++) {
@@ -55,8 +59,7 @@ function init() {
 }
 
 function animate() {
-    //ctx.globalAlpha = 1;
-    ctx.globalAlpha = 0.1;
+    ctx.globalAlpha = 0.2;
     //ctx.globalAlpha = 0.05;
     ctx.fillStyle = 'rgb(0,0,0)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);

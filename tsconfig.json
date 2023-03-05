@@ -18,6 +18,6 @@
     "allowJs": true,
     //"checkJs": true,
   },
-  "include": ["src"],
+  "include": ["src", "pixel_rain"],
   "exclude": ["node_modules"],
 }

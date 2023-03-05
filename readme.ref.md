@@ -1,8 +1,44 @@
-vite
+# vite
 
 * vite-template : <https://github.com/vitejs/vite/tree/main/packages/create-vite>
 
-How to Catch Unhandled Javascript Errors
+## Multi-Page App
+
+* 여러 `.html` 파일을 앱의 진입점을 사용하기
+* <https://vitejs-kr.github.io/guide/build.html#multi-page-app>
+* `vite.config.js` 설정 파일 추가
+
+```
+├── package.json
+├── vite.config.js
+├── index.html
+├── main.js
+└── nested
+    ├── index.html
+    └── nested.js
+```
+
+```js
+// vite.config.js
+import { resolve } from 'path'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        nested: resolve(__dirname, 'nested/index.html')
+      }
+    }
+  }
+})
+```
+
+# 문제 해결
+
+### How to Catch Unhandled Javascript Errors
+
 * <https://stackoverflow.com/questions/951791/javascript-global-event-mechanism>
 
 ```js
@@ -28,7 +64,7 @@ How to Catch Unhandled Javascript Errors
 </script>
 ```
 
-널 초기화 하려는데 아래 같은 에러가 뜬다면,
+### 널 초기화 하려는데 아래 같은 에러가 뜬다면,
 
 ```'null' 형식은 'GameStat' 형식에 할당할 수 없습니다.ts(2322)```
 
