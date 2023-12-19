@@ -1,6 +1,11 @@
 
 # vite + Html-Canvas 연습
 
+터미널(콘솔)에서
+```
+vite dev
+```
+
 # etc
 
 ```
