@@ -26,18 +26,27 @@ class CubePoint3D
 let positionX = canvas.width / 2;
 let positionY = canvas.height / 2;
 let positionZ = 0;
-let cubeSize = canvas.height / 2;
+let cubeSize = canvas.height / 3;
+console.log(`canvas.width:${canvas.width}, canvas.height:${canvas.height}, positionX:${positionX} positionY:${positionY} cubeSize:${cubeSize}`);
 
+//
+//   +-----+     4 --- 5
+//  /     /|    /     /|
+// +-----+ |   0 --- 1 |
+// |     | +   | 7   | 6
+// |     |/    |     |/ 
+// +-----+     3 --- 2  
+//
 let vertices = [
-    new CubePoint3D(positionX-cubeSize, positionY-cubeSize, positionZ-cubeSize),
-    new CubePoint3D(positionX+cubeSize, positionY-cubeSize, positionZ-cubeSize),
-    new CubePoint3D(positionX+cubeSize, positionY+cubeSize, positionZ-cubeSize),
-    new CubePoint3D(positionX-cubeSize, positionY+cubeSize, positionZ-cubeSize),
+    new CubePoint3D(positionX-cubeSize, positionY-cubeSize, positionZ-cubeSize), // 0
+    new CubePoint3D(positionX+cubeSize, positionY-cubeSize, positionZ-cubeSize), // 1
+    new CubePoint3D(positionX+cubeSize, positionY+cubeSize, positionZ-cubeSize), // 2
+    new CubePoint3D(positionX-cubeSize, positionY+cubeSize, positionZ-cubeSize), // 3
 
-    new CubePoint3D(positionX-cubeSize, positionY-cubeSize, positionZ+cubeSize),
-    new CubePoint3D(positionX+cubeSize, positionY-cubeSize, positionZ+cubeSize),
-    new CubePoint3D(positionX+cubeSize, positionY+cubeSize, positionZ+cubeSize),
-    new CubePoint3D(positionX-cubeSize, positionY+cubeSize, positionZ+cubeSize),
+    new CubePoint3D(positionX-cubeSize, positionY-cubeSize, positionZ+cubeSize), // 4
+    new CubePoint3D(positionX+cubeSize, positionY-cubeSize, positionZ+cubeSize), // 5
+    new CubePoint3D(positionX+cubeSize, positionY+cubeSize, positionZ+cubeSize), // 6
+    new CubePoint3D(positionX-cubeSize, positionY+cubeSize, positionZ+cubeSize), // 7
 ];
 
 let edges = [
@@ -48,9 +57,11 @@ let edges = [
 
 let time, timeLast = 0;
 
+// -- update --
+
 function loop(currentTime)
 {
-    time = currentTime = timeLast;
+    time = currentTime - timeLast;
     timeLast = currentTime;
     update();
     render();
@@ -58,9 +69,33 @@ function loop(currentTime)
 }
 requestAnimationFrame(loop);
 
+// -- rotation --
+
+function moveX() 
+{
+    let angle = Math.PI / 180; // Convert to radians
+    for (let i = 0; i < vertices.length; i++) {
+        let y = vertices[i].y - positionY;
+        let z = vertices[i].z - positionZ;
+        vertices[i].y = y * Math.cos(angle) - z * Math.sin(angle) + positionY;
+        vertices[i].z = y * Math.sin(angle) + z * Math.cos(angle) + positionZ;
+    }
+}
+
+function moveY()
+{
+}
+
+function moveZ()
+{
+    
+}
+
 function update()
 {
 }
+
+// -- rnder all --
 
 function render()
 {
@@ -75,6 +110,7 @@ function render()
         context.moveTo(vertices[edge[0]].x, vertices[edge[0]].y);
         context.lineTo(vertices[edge[1]].x, vertices[edge[1]].y);
         context.stroke();
+        context.closePath();
     }
 }
 

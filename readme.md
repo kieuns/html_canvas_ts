@@ -18,3 +18,6 @@ npm install @types/dat.gui --save-dev
 npm install @types/node --save-dev
 npm install @types/dat.gui --save-dev
 ```
+
+# src\spinning-cube-1.js
+* <https://www.youtube.com/watch?v=2onQJveDXc4>
